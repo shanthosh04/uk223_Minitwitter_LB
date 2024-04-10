@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierung | MiniTwitter</title>
+    <link rel="icon" href="img/logo.webp" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="register.js" defer></script>
+</head>
+<body class="flex flex-col min-h-screen">
+    <nav class="bg-stone-400 text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="./html/login.html" class="flex items-center py-5 px-2 hover:text-gray-300">
+                    <img src="img/logo.webp" alt="Logo" class="h-8 w-8 mr-2">
+                    <span class="font-bold">MiniTwitter</span>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <a href="./html/login.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Login</a>
+                    <a href="index.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Registrieren</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="flex flex-col items-center justify-center flex-grow">
+        <div class="bg-stone-400 p-6 rounded-lg shadow-lg text-gray-900">
+            <h2 class="text-3xl font-bold mb-4">Registrieren</h2>
+            <form id="registerForm" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium">Benutzername</label>
+                    <input type="text" id="username" name="username" class="mt-1 p-2 w-full rounded-md" placeholder="gib dein Benutzername ein" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium">Passwort</label>
+                    <input type="password" id="password" name="password" class="mt-1 p-2 w-full rounded-md" placeholder="gib dein Passwort ein" required>
+                </div>
+                <button type="submit" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-700 rounded-md text-white font-bold">Senden</button>
+            </form>
+            <div id="message" class="mt-4 text-gray-900"></div>
+        </div>
+    </main>
+
+    <footer class="bg-stone-400	text-white py-4 mt-auto">
+        <div class="text-center text-sm">Copyright &copy; 2024 |Shanthosh Sivasentinathan</div>
+    </footer>
+</body>
+</html>
