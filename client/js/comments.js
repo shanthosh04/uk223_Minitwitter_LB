@@ -42,28 +42,34 @@ class CommentApp {
     async fetchAndDisplayTweet() {
         const tweetId = this.getTweetIdFromUrl();
         try {
-            const tweet = await this.makeApiCall(tweetId);
-            if (tweet) {
-                this.displayTweet(tweet);
+            const tweets = await this.makeApiCall(tweetId);
+            if (tweets.length > 0) {
+                this.displayTweet(tweets[0]);
             } else {
                 this.displayMessage('Tweet not found.');
             }
         } catch (error) {
             console.error(error);
+            this.displayMessage(error.toString());
         }
     }
+    
+    
 
     displayTweet(tweet) {
         const tweetContainer = document.getElementById('tweetContainer');
+        const formattedDate = tweet.created_at ? new Date(tweet.created_at).toLocaleDateString("de-DE") : "Unknown date";
         tweetContainer.innerHTML = `
-            <div class="tweet bg-gray-100 p-2 rounded-lg shadow">
-                <p>${tweet.content}</p>
-                <div class="tweet-info text-xs text-gray-500">
-                    Posted by ${tweet.created_by} on ${new Date(tweet.created_at).toLocaleDateString("de-DE")}
+            <div class="tweet bg-white p-4 rounded-lg shadow mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-lg font-bold">${tweet.created_by || 'Unknown User'}</span>
+                    <span class="text-gray-600 text-xs">${formattedDate}</span>
                 </div>
+                <p class="text-sm mb-2">${tweet.content || 'No content available'}</p>
             </div>
         `;
     }
+    
 
     async fetchAndDisplayComments() {
         const tweetId = this.getTweetIdFromUrl();
@@ -77,19 +83,25 @@ class CommentApp {
 
     displayComments(comments) {
         const commentsContainer = document.getElementById('commentsContainer');
-        commentsContainer.innerHTML = comments.map(comment => `
-            <div class="comment bg-gray-100 p-2 rounded-lg shadow mb-4" data-comment-id="${comment.id}">
-                <div class="flex justify-between mb-2">
-                    <strong>${comment.created_by}:</strong>
-                    <span class="date text-xs" style="font-size: 0.75rem; color: #666;">${new Date(comment.created_at).toLocaleDateString("de-DE")}</span>
+        commentsContainer.innerHTML = comments.map(comment => {
+            const commentContent = comment.content || 'No content available';
+            const commentCreatedBy = comment.created_by || 'Unknown author';
+            const commentCreatedAt = comment.created_at ? new Date(comment.created_at).toLocaleDateString("de-DE") : 'Unknown date';
+            
+            return `
+                <div class="comment bg-gray-100 p-2 rounded-lg shadow mb-4" data-comment-id="${comment.id}">
+                    <div class="flex justify-between mb-2">
+                        <strong>${commentCreatedBy}:</strong>
+                        <span class="date text-xs" style="font-size: 0.75rem; color: #666;">${commentCreatedAt}</span>
+                    </div>
+                    <p>${commentContent}</p>
+                    <div class="comment-actions flex justify-end mt-2">
+                        <button class="edit-btn py-1 px-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded text-xs" data-comment-id="${comment.id}">🖊️</button>
+                        <button class="delete-btn py-1 px-2 bg-red-500 hover:bg-red-600 text-white rounded text-xs ml-2" data-comment-id="${comment.id}">🗑️</button>
+                    </div>
                 </div>
-                <p>${comment.content}</p>
-                <div class="comment-actions flex justify-end mt-2">
-                    <button class="edit-btn py-1 px-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded text-xs" data-comment-id="${comment.id}">🖊️</button>
-                    <button class="delete-btn py-1 px-2 bg-red-500 hover:bg-red-600 text-white rounded text-xs ml-2" data-comment-id="${comment.id}">🗑️</button>
-                </div>
-            </div>
-        `).join('') || '<p>No comments yet.</p>';
+            `;
+        }).join('') || '<p>No comments yet.</p>';
         this.attachCommentActionListeners();
     }
 
