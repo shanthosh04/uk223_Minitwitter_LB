@@ -33,7 +33,7 @@ class UserLogin {
             this.showMessage('Login erfolgreich. Sie werden weitergeleitet...', 'success');
             
             setTimeout(() => {
-                window.location.href = './tweet.html';
+                window.location.href = './tweets.html';
             }, 2000);
         } catch (error) {
             this.showMessage(error.message, 'error');

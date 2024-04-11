@@ -12,7 +12,6 @@ export class UserController {
         this.setupRoutes()
     }
 
-    // methods
     private setupRoutes(): void {
         this.router.get('/', this.getUsers)
         this.router.get('/:id', this.getUser)
@@ -20,7 +19,7 @@ export class UserController {
         this.router.post('/login', this.loginUser)
         this.router.patch('/:id/block', this.blockUser)
         this.router.patch('/:id', this.updateUser)
-
+        
     }
 
     private getUsers = async (req: Request, res: Response) => {
@@ -59,16 +58,16 @@ export class UserController {
     }
     
     private loginUser = async (req: Request, res: Response) => {
-        const { username, password } = req.body // users input
+        const { username, password } = req.body
         if (!username || !password) {
             res.status(400).json({ message: 'missing required fields'})
             return 
         }
         const query = `SELECT id, username, role, is_active, created_at FROM users WHERE username = '${username}' AND password = '${password}'`
-        const users = await this.database.executeSQL(query) // array 
+        const users = await this.database.executeSQL(query)
         if (users.length === 0) {
             res.status(401).json({ message: 'User or Password wrong!'})
-            return // fertig
+            return
         }
         const user = users[0]
 
@@ -78,7 +77,6 @@ export class UserController {
         }
 
         const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: '1h' });
-        // return token und user
         res.json({ jwt: token, user })
     }
 
@@ -92,7 +90,7 @@ export class UserController {
         await this.database.executeSQL(query)
         res.status(200).json({ message: "User active status updated" })
     }
-
+    
     private updateUser = async (req: Request, res: Response) => {
         if (req.user?.id !== parseInt(req.params.id)) {
             res.status(401).json({ message: "Unauthorized" })

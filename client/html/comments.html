@@ -8,10 +8,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/comments.js" defer></script>
     <style>
-        #tweetContainer {
+        #tweetContainer, #commentsContainer {
             max-height: 400px;
             overflow-y: auto;
-            width: 100%; 
+            width: 100%;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
     </style>
 </head>
@@ -24,7 +35,7 @@
                     <span class="font-bold">MiniTwitter</span>
                 </a>
                 <div class="flex items-center space-x-4">
-                    <a href="tweet.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Tweets</a>
+                    <a href="tweets.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Tweet</a>
                     <a href="login.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Login</a>
                     <a href="../index.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Registrieren</a>
                     <a href="profile.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Benutzerprofil</a>
@@ -35,12 +46,13 @@
 
     <br>
     <br>
-    <br>
-    
+
     <main class="flex flex-col items-center justify-center flex-grow">
         <div class="bg-stone-400 p-8 rounded-lg shadow-lg text-gray-900 w-3/4 min-h-[200px] flex flex-col justify-between">
-            <h2 class="text-3xl font-bold mb-4">Kommentare</h2>
+            <h2 class="text-3xl font-bold mb-4">Tweet</h2>
             <div id="tweetContainer" class="text-gray-900"></div>
+            <h3 class="text-2xl font-bold mb-4">Kommentare</h3>
+            <div id="commentsContainer" class="mt-4"></div>
             <form id="commentForm" class="mt-auto">
                 <div class="flex items-center space-x-3">
                     <input type="text" id="content" name="content" class="mt-1 p-2 flex-grow rounded-md" required>
@@ -50,7 +62,6 @@
         </div>
     </main>
 
-    <br>
     <br>
     <br>
 
