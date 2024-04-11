@@ -3,28 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tweet | MiniTwitter</title>
+    <title>Kommentare | MiniTwitter</title>
     <link rel="icon" href="../img/logo.webp" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../js/tweet.js" defer></script>
+    <script src="../js/comments.js" defer></script>
     <style>
-        /* CSS to make the message container scrollable */
-        #message {
-            max-height: 400px; /* Adjust based on the size of your container */
-            overflow-y: auto; /* This enables scrolling if content exceeds max-height */
-            width: 100%; /* Optional: Adjust based on your layout needs */
-        }
-        /* Additional styles for visual consistency */
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        #tweetContainer {
+            max-height: 400px;
+            overflow-y: auto;
+            width: 100%; 
         }
     </style>
 </head>
@@ -37,6 +24,7 @@
                     <span class="font-bold">MiniTwitter</span>
                 </a>
                 <div class="flex items-center space-x-4">
+                    <a href="tweet.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Tweets</a>
                     <a href="login.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Login</a>
                     <a href="../index.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Registrieren</a>
                     <a href="profile.html" class="py-2 px-3 hover:bg-stone-500 hover:text-white rounded-md">Benutzerprofil</a>
@@ -51,9 +39,9 @@
     
     <main class="flex flex-col items-center justify-center flex-grow">
         <div class="bg-stone-400 p-8 rounded-lg shadow-lg text-gray-900 w-3/4 min-h-[200px] flex flex-col justify-between">
-            <h2 class="text-3xl font-bold mb-4">Tweets</h2>
-            <div id="message" class="text-gray-900"></div>
-            <form id="tweetForm" class="mt-auto"> 
+            <h2 class="text-3xl font-bold mb-4">Kommentare</h2>
+            <div id="tweetContainer" class="text-gray-900"></div>
+            <form id="commentForm" class="mt-auto">
                 <div class="flex items-center space-x-3">
                     <input type="text" id="content" name="content" class="mt-1 p-2 flex-grow rounded-md" required>
                     <button type="submit" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 rounded-md text-white font-bold">➕</button>

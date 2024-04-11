@@ -10,6 +10,6 @@ interface JwtUser {
     role: string
     is_active: boolean
     created_at: string
-    iat: number // token issued at
-    exp: number // token expires in
+    iat: number
+    exp: number
 }

@@ -33,16 +33,16 @@ export class UserController {
     private getUser = async (req: Request, res: Response) => {
         const id = req.params.id
         const query = `SELECT id, username, role, is_active, created_at FROM users WHERE id = ${id}`
-        const users = await this.database.executeSQL(query) // array
+        const users = await this.database.executeSQL(query)
         if (users.length === 0) {
             res.status(404).json({ message: 'User not found!'})
-            return // fertig
+            return
         }
         res.json(users[0])
     }
 
     private createUser = async (req: Request, res: Response) => {
-        const { username, password } = req.body // users input
+        const { username, password } = req.body
         if (!username || !password) {
             res.status(400).json({ message: 'missing required fields'})
             return 
@@ -50,7 +50,7 @@ export class UserController {
         const userExistsQuery = `SELECT id FROM users WHERE username = '${username}'`
         const userExists = await this.database.executeSQL(userExistsQuery)
         if (userExists.length > 0) {
-            res.status(409).json({ message: 'User already exists' }) // 409 code conflict
+            res.status(409).json({ message: 'User already exists' })
             return
         }
         const query = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`
